@@ -30,7 +30,7 @@ void LoadTexture()
     // here you can add more textures using 'texture_pointer'. It is returned aligned to 16 bytes
 
     jpg1.jpg_in= (void *) psl1ght_jpg_bin;
-	jpg1.jpg_size= sizeof(psl1ght_jpg_bin);
+    jpg1.jpg_size= sizeof(psl1ght_jpg_bin);
 
     LoadJPG(&jpg1, NULL);
 
@@ -57,7 +57,7 @@ int LoadTexturePNG(char * filename, int index)
 
     // here you can add more textures using 'texture_pointer'. It is returned aligned to 16 bytes
    
-	LoadPNG(&Png_datas[index], filename);
+    LoadPNG(&Png_datas[index], filename);
     free(Png_datas[index].png_in);
 
     Png_offset[index] = 0;
@@ -118,84 +118,84 @@ void DrawTextBox(float x, float y, float z, float w, float h, u32 rgba)
 struct {
     float x, y, dx, dy, r, rs;
 
-} m_twat[32];
+} m_obj[32];
 
-void init_twat()
+void init_obj()
 {
     int i;
 
     for(i = 0; i < 32; i++) {
-        m_twat[i].x = (rand() % 640) + 104;
-        m_twat[i].y = (rand() % 300) + 106;
+        m_obj[i].x = (rand() % 640) + 104;
+        m_obj[i].y = (rand() % 300) + 106;
 
-        m_twat[i].dx = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
-        m_twat[i].dy = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
-        m_twat[i].r = 0;
-        m_twat[i].rs = ((float) ((int) (rand() & 7) - 3)) / 80.0f;
+        m_obj[i].dx = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
+        m_obj[i].dy = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
+        m_obj[i].r = 0;
+        m_obj[i].rs = ((float) ((int) (rand() & 7) - 3)) / 80.0f;
     }
 }
 
-void update_twat()
+void update_obj()
 {
     int i;
 
     for(i = 0; i < 32; i++) {
 
         if((rand() & 0x1ff) == 5) {
-            m_twat[i].dx = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
-            m_twat[i].dy = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
-            m_twat[i].rs = ((float) ((int) (rand() & 7) - 3)) / 80.0f;
+            m_obj[i].dx = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
+            m_obj[i].dy = ((float) ((int) (rand() & 7) - 3)) / 12.0f;
+            m_obj[i].rs = ((float) ((int) (rand() & 7) - 3)) / 80.0f;
             
         }
 
-        if(m_twat[i].dx == 0.0f && m_twat[i].dy == 0.0f) {m_twat[i].dy = 0.25f; m_twat[i].dx = (rand() & 1) ? 0.25f : -0.25f;}
-        if(m_twat[i].rs == 0.0f) m_twat[i].rs = (rand() & 1) ? .001f : -0.001f;
+        if(m_obj[i].dx == 0.0f && m_obj[i].dy == 0.0f) {m_obj[i].dy = 0.25f; m_obj[i].dx = (rand() & 1) ? 0.25f : -0.25f;}
+        if(m_obj[i].rs == 0.0f) m_obj[i].rs = (rand() & 1) ? .001f : -0.001f;
         
-        m_twat[i].x += m_twat[i].dx;
-        m_twat[i].y += m_twat[i].dy;
-        m_twat[i].r += m_twat[i].rs;
+        m_obj[i].x += m_obj[i].dx;
+        m_obj[i].y += m_obj[i].dy;
+        m_obj[i].r += m_obj[i].rs;
     
         if(i & 1) {
-            if(m_twat[i].x < 0)  {
-                if(m_twat[i].dx < 0) m_twat[i].dx = -m_twat[i].dx;
+            if(m_obj[i].x < 0)  {
+                if(m_obj[i].dx < 0) m_obj[i].dx = -m_obj[i].dx;
             }
 
-            if(m_twat[i].y < 0)  {
-                if(m_twat[i].dy < 0) m_twat[i].dy = -m_twat[i].dy;
+            if(m_obj[i].y < 0)  {
+                if(m_obj[i].dy < 0) m_obj[i].dy = -m_obj[i].dy;
             }
 
-            if(m_twat[i].x >= 600)  {
-                if(m_twat[i].dx > 0) m_twat[i].dx = -m_twat[i].dx;
+            if(m_obj[i].x >= 600)  {
+                if(m_obj[i].dx > 0) m_obj[i].dx = -m_obj[i].dx;
             }
 
-            if(m_twat[i].y >= 480)  {
-                if(m_twat[i].dy > 0) m_twat[i].dy = -m_twat[i].dy;
+            if(m_obj[i].y >= 480)  {
+                if(m_obj[i].dy > 0) m_obj[i].dy = -m_obj[i].dy;
             }
         } else {
-            if(m_twat[i].x < 248)  {
-                if(m_twat[i].dx < 0) m_twat[i].dx = -m_twat[i].dx;
+            if(m_obj[i].x < 248)  {
+                if(m_obj[i].dx < 0) m_obj[i].dx = -m_obj[i].dx;
             }
 
-            if(m_twat[i].y < 32)  {
-                if(m_twat[i].dy < 0) m_twat[i].dy = -m_twat[i].dy;
+            if(m_obj[i].y < 32)  {
+                if(m_obj[i].dy < 0) m_obj[i].dy = -m_obj[i].dy;
             }
 
-            if(m_twat[i].x >= 848)  {
-                if(m_twat[i].dx > 0) m_twat[i].dx = -m_twat[i].dx;
+            if(m_obj[i].x >= 848)  {
+                if(m_obj[i].dx > 0) m_obj[i].dx = -m_obj[i].dx;
             }
 
-            if(m_twat[i].y >= 512)  {
-                if(m_twat[i].dy > 0) m_twat[i].dy = -m_twat[i].dy;
+            if(m_obj[i].y >= 512)  {
+                if(m_obj[i].dy > 0) m_obj[i].dy = -m_obj[i].dy;
             }
         
         }
         
-        draw_twat(m_twat[i].x, m_twat[i].y, m_twat[i].r);
+        draw_obj(m_obj[i].x, m_obj[i].y, m_obj[i].r);
     }
     
 }
 
-void draw_twat(float x, float y, float angle)
+void draw_obj(float x, float y, float angle)
 {
     int n;
 
